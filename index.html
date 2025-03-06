@@ -1,15 +1,20 @@
+<!-- Declaración del tipo de documento HTML y lenguaje -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Metadatos básicos -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Programa Partners Q10 - Únete a la red de socios estratégicos en educación digital">
     <title>Programa Partners Q10 - Soluciones Educativas</title>
+    <!-- Hojas de estilo -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Encabezado -->
     <header>
+        <!-- Barra superior de contacto -->
         <div class="top-contact">
             <div class="contact-container">
                 <a href="#" class="chat-link"><i class="far fa-comment-dots"></i> Chat de Ventas</a>
@@ -18,14 +23,18 @@
                 <a href="https://q10.com/login" class="login-link"><i class="fas fa-user"></i> Iniciar Sesión en Q10</a>
             </div>
         </div>
+        <!-- Barra de navegación -->
         <nav>
             <div class="nav-container">
+                <!-- Logo -->
                 <div class="logo">
                     <img src="Img/LOGO PROGRAMA PARTNER Q10.png" alt="Q10 Logo">
                 </div>
+                <!-- Botón de menú móvil -->
                 <div class="menu-toggle">
                     <i class="fas fa-bars"></i>
                 </div>
+                <!-- Enlaces de navegación -->
                 <div class="nav-links">
                     <div class="nav-menu">
                         <div class="close-menu">
@@ -37,6 +46,7 @@
                         <a href="#partners">PARTNERS</a>
                         <a href="#contacto">CONTACTO</a>
                     </div>
+                    <!-- Botón de prueba gratuita -->
                     <div class="nav-button">
                         <a href="#" class="btn-primary" onclick="openModal()">PRUEBA GRATUITA</a>
                     </div>
@@ -46,12 +56,15 @@
         </nav>
     </header>
 
+    <!-- Contenido principal -->
     <main>
+        <!-- Sección Hero -->
         <section class="hero" id="inicio">
             <div class="wave-shape"></div>
             <div class="hero-content">
                 <h1>Potencia el Futuro de la Educación</h1>
                 <p class="hero-subtitle">Únete al programa Partners Q10 y sé parte de la transformación digital educativa en Latinoamérica.</p>
+                <!-- Características destacadas -->
                 <div class="hero-features">
                     <div class="feature">
                         <i class="fas fa-check-circle"></i>
@@ -66,11 +79,13 @@
                         <span>Capacitación continua</span>
                     </div>
                 </div>
+                <!-- Botones de llamada a la acción -->
                 <div class="cta-buttons">
                     <button class="btn-affiliate" onclick="openModal()">¡Conviértete en Partner!</button>
                     <button class="btn-secondary" onclick="location.href='#planes'">Conoce nuestros planes</button>
                 </div>
             </div>
+            <!-- Imagen principal del hero -->
             <div class="hero-image">
                 <img src="Img/ELEMENTO 6.webp" alt="Partner Q10">
                 <div class="floating-elements">
@@ -79,8 +94,10 @@
             </div>
         </section>
 
+        <!-- Sección de estadísticas -->
         <section class="stats">
             <div class="stats-container">
+                <!-- Estadísticas de usuarios -->
                 <div class="stats-item">
                     <i class="fas fa-users"></i>
                     <div class="stats-info">
@@ -88,6 +105,7 @@
                         <span class="stats-text">de usuarios activos</span>
                     </div>
                 </div>
+                <!-- Estadísticas de países -->
                 <div class="stats-item">
                     <i class="fas fa-globe-americas"></i>
                     <div class="stats-info">
@@ -95,6 +113,7 @@
                         <span class="stats-number">19 países</span>
                     </div>
                 </div>
+                <!-- Estadísticas de clientes -->
                 <div class="stats-item">
                     <i class="fas fa-smile"></i>
                     <div class="stats-info">
@@ -102,6 +121,7 @@
                         <span class="stats-text">clientes satisfechos</span>
                     </div>
                 </div>
+                <!-- Posicionamiento en el mercado -->
                 <div class="stats-item">
                     <i class="fas fa-trophy"></i>
                     <div class="stats-info">
@@ -112,12 +132,15 @@
             </div>
         </section>
 
+        <!-- Sección de beneficios -->
         <section class="benefits" id="beneficios">
             <div class="section-header">
                 <h2>¿Por qué ser un Partner Q10?</h2>
                 <p>Descubre los beneficios exclusivos que tenemos para nuestros socios estratégicos</p>
             </div>
+            <!-- Grid de beneficios -->
             <div class="benefits-grid">
+                <!-- Tarjetas de beneficios -->
                 <div class="benefit-card">
                     <i class="fas fa-chart-line"></i>
                     <h3>Crecimiento Económico</h3>
@@ -141,10 +164,13 @@
             </div>
         </section>
 
+        <!-- Sección de planes -->
         <section class="plans" id="planes">
             <h2>Formas de asociarte</h2>
             <p>Elige el camino ideal para ti y tu negocio.</p>
+            <!-- Grid de planes -->
             <div class="plans-grid">
+                <!-- Plan básico -->
                 <div class="plan-card">
                     <h3>Refiere</h3>
                     <p>Gana comisiones refiriendo a Q10.</p>
@@ -154,6 +180,7 @@
                     </ul>
                     <button class="btn-affiliate" onclick="openModal()">¡Afíliate ahora!</button>
                 </div>
+                <!-- Plan destacado -->
                 <div class="plan-card featured">
                     <h3>Revende</h3>
                     <p>Aumenta tus ingresos y adquiere beneficios exclusivos.</p>
@@ -168,6 +195,7 @@
             </div>
         </section>
 
+        <!-- Sección de tipos de partners -->
         <section class="partner-types" id="partner-types">
             <div class="partner-types-container">
                 <div class="partner-types-content">
@@ -181,6 +209,7 @@
                         <p>De Tecnología y/o Educación.</p>
                     </div>
                 </div>
+                <!-- Imagen ilustrativa -->
                 <div class="partner-types-image">
                     <div class="image-frame">
                         <img src="Img/ELEMENTO 7.webp" alt="Partner Q10">
@@ -190,11 +219,13 @@
             </div>
         </section>
 
+        <!-- Sección de pasos -->
         <section class="steps">
             <div class="section-header">
                 <h2>Sé uno de nuestros Partners Q10 en solo 3 pasos</h2>
             </div>
             <div class="steps-container">
+                <!-- Tarjetas de pasos -->
                 <div class="step-card">
                     <div class="step-number">1</div>
                     <h3>Infórmate</h3>
@@ -213,6 +244,7 @@
             </div>
         </section>
 
+        <!-- Sección de llamada a la acción final -->
         <section class="join-cta">
             <div class="join-content">
                 <h2>¡Únete a la expansión de Q10!</h2>
@@ -222,11 +254,12 @@
         </section>
     </main>
 
-    <!-- Modal de Afiliación -->
+    <!-- Modal de afiliación -->
     <div id="affiliateModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>Sé un Partner Q10, lidera el cambio en la educación de Latinoamérica y monetiza.</h2>
+            <!-- Formulario de afiliación -->
             <form id="affiliateForm" onsubmit="submitForm(event)">
                 <div class="form-group">
                     <label for="fullName">Nombres y apellidos *</label>
@@ -261,8 +294,10 @@
         </div>
     </div>
 
+    <!-- Pie de página -->
     <footer>
         <div class="footer-content">
+            <!-- Secciones del footer -->
             <div class="footer-section">
                 <h4>Empresa</h4>
                 <a href="#">Acerca de nosotros</a>
@@ -286,6 +321,7 @@
                 <a href="#">Pagos en línea</a>
                 <a href="#">Estado del servicio</a>
             </div>
+            <!-- Formulario de contacto -->
             <div class="footer-section contact-form" id="contacto">
                 <h4>Contáctenos</h4>
                 <form id="contactForm" novalidate>
@@ -303,6 +339,7 @@
                 </form>
             </div>
         </div>
+        <!-- Parte inferior del footer -->
         <div class="footer-bottom">
             <div class="footer-logo">
                 <img src="Img/LOGO PROGRAMA PARTNER Q10 BLANCO.png" alt="Q10 Logo" class="q10-logo">
@@ -314,12 +351,14 @@
             <div class="copyright">
                 © Q10 - 2025
             </div>
+            <!-- Botón de WhatsApp flotante -->
             <a href="https://wa.me/tunumero" class="whatsapp-button" target="_blank">
                 <i class="fab fa-whatsapp"></i>
             </a>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
 </html> 

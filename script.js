@@ -1,23 +1,24 @@
 // Elementos del DOM
-const modal = document.getElementById('affiliateModal');
-const form = document.getElementById('affiliateForm');
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-const body = document.body;
-const closeMenu = document.querySelector('.close-menu');
+const modal = document.getElementById('affiliateModal'); // Modal de afiliación
+const form = document.getElementById('affiliateForm'); // Formulario de afiliación
+const menuToggle = document.querySelector('.menu-toggle'); // Botón de menú móvil
+const navLinks = document.querySelector('.nav-links'); // Enlaces de navegación
+const body = document.body; // Elemento body
+const closeMenu = document.querySelector('.close-menu'); // Botón para cerrar menú
 
-// Configuración
+// Configuración de constantes
 const CONFIG = {
-    ANIMATION_DURATION: 300,
-    DEBOUNCE_DELAY: 500,
-    MIN_PHONE_LENGTH: 8,
-    MAX_PHONE_LENGTH: 15,
-    EMAIL_REGEX: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-    PHONE_REGEX: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+    ANIMATION_DURATION: 300, // Duración de animaciones en ms
+    DEBOUNCE_DELAY: 500, // Retraso para debounce en ms
+    MIN_PHONE_LENGTH: 8, // Longitud mínima para números telefónicos
+    MAX_PHONE_LENGTH: 15, // Longitud máxima para números telefónicos
+    EMAIL_REGEX: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/, // Regex para validar emails
+    PHONE_REGEX: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/ // Regex para validar teléfonos
 };
 
-// Utilidades
+// Objeto con utilidades y funciones helper
 const utils = {
+    // Función debounce para limitar la frecuencia de ejecución
     debounce: (func, wait) => {
         let timeout;
         return function executedFunction(...args) {
@@ -30,10 +31,13 @@ const utils = {
         };
     },
     
+    // Valida formato de email
     validateEmail: (email) => CONFIG.EMAIL_REGEX.test(email),
     
+    // Valida formato de teléfono
     validatePhone: (phone) => CONFIG.PHONE_REGEX.test(phone),
     
+    // Muestra mensaje de error
     showError: (element, message) => {
         const errorDiv = document.createElement('div');
         errorDiv.className = 'error-message animate-fade-up';
@@ -44,6 +48,7 @@ const utils = {
         setTimeout(() => errorDiv.remove(), 5000);
     },
     
+    // Muestra mensaje de éxito
     showSuccess: (message) => {
         const notification = document.createElement('div');
         notification.className = 'notification success animate-fade-up';
@@ -53,6 +58,7 @@ const utils = {
         setTimeout(() => notification.remove(), 3000);
     },
     
+    // Formatea datos del formulario
     formatFormData: (formData) => {
         return Object.fromEntries(
             Object.entries(formData).map(([key, value]) => [
@@ -63,18 +69,18 @@ const utils = {
     }
 };
 
-// Funcionalidad del menú móvil
+// Inicialización y manejo del menú móvil
 document.addEventListener('DOMContentLoaded', function() {
     let menuOverlay;
 
-    // Crear el overlay
+    // Crea el overlay del menú
     function createOverlay() {
         menuOverlay = document.createElement('div');
         menuOverlay.className = 'menu-overlay';
         document.body.appendChild(menuOverlay);
     }
 
-    // Función para abrir el menú
+    // Abre el menú móvil
     function openMenu() {
         navLinks.classList.add('active');
         createOverlay();
@@ -82,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = 'hidden';
     }
 
-    // Función para cerrar el menú
+    // Cierra el menú móvil
     function closeMenuHandler() {
         navLinks.classList.remove('active');
         if (menuOverlay) {
@@ -92,18 +98,18 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = '';
     }
 
-    // Event listeners
+    // Event listeners para el menú
     menuToggle.addEventListener('click', openMenu);
     closeMenu.addEventListener('click', closeMenuHandler);
 
-    // Cerrar menú al hacer clic en un enlace
+    // Cierra el menú al hacer clic en un enlace
     navLinks.addEventListener('click', function(e) {
         if (e.target.tagName === 'A') {
             closeMenuHandler();
         }
     });
 
-    // Cerrar menú al hacer clic fuera
+    // Cierra el menú al hacer clic fuera
     document.addEventListener('click', function(e) {
         if (menuOverlay && e.target === menuOverlay) {
             closeMenuHandler();
@@ -111,14 +117,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Función para abrir el modal
+// Manejo del modal de afiliación
 function openModal() {
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
     modal.classList.add('fade-in');
 }
 
-// Función para cerrar el modal
+// Cierra el modal con animación
 function closeModal() {
     modal.classList.remove('fade-in');
     modal.classList.add('fade-out');
@@ -129,23 +135,23 @@ function closeModal() {
     }, 300);
 }
 
-// Cerrar modal al hacer clic fuera del contenido
+// Cierra el modal al hacer clic fuera
 window.onclick = function(event) {
     if (event.target === modal) {
         closeModal();
     }
 }
 
-// Manejar el envío del formulario
+// Maneja el envío del formulario de afiliación
 async function submitForm(event) {
     event.preventDefault();
 
-    // Validar el formulario
+    // Valida campos del formulario
     if (!validateForm()) {
         return;
     }
 
-    // Obtener los valores del formulario
+    // Recopila datos del formulario
     const formData = {
         fullName: document.getElementById('fullName').value,
         country: document.getElementById('country').value,
@@ -156,13 +162,13 @@ async function submitForm(event) {
     };
 
     try {
-        // Mostrar indicador de carga
+        // Actualiza UI durante el envío
         const submitButton = form.querySelector('button[type="submit"]');
         const originalText = submitButton.textContent;
         submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
         submitButton.disabled = true;
 
-        // Simular envío de email
+        // Prepara cuerpo del email
         const emailBody = `
             Nuevo registro de Partner Q10:
             
@@ -174,27 +180,27 @@ async function submitForm(event) {
             Motivación: ${formData.motivation}
         `;
 
-        // Aquí iría la llamada al servidor
-        await new Promise(resolve => setTimeout(resolve, 1500)); // Simulación de delay
+        // Simula envío al servidor
+        await new Promise(resolve => setTimeout(resolve, 1500));
         console.log('Datos que se enviarían:', emailBody);
         
-        // Mostrar mensaje de éxito
+        // Muestra confirmación
         showNotification('¡Gracias por tu interés! Nos pondremos en contacto contigo pronto.', 'success');
         
-        // Cerrar el modal y resetear el formulario
+        // Limpia y cierra el formulario
         closeModal();
         form.reset();
     } catch (error) {
         console.error('Error al enviar el formulario:', error);
         showNotification('Hubo un error al enviar el formulario. Por favor, intenta nuevamente.', 'error');
     } finally {
-        // Restaurar el botón
+        // Restaura el botón
         submitButton.textContent = originalText;
         submitButton.disabled = false;
     }
 }
 
-// Función para validar el formulario
+// Valida campos del formulario
 function validateForm() {
     let isValid = true;
     const requiredFields = form.querySelectorAll('[required]');
@@ -218,7 +224,7 @@ function validateForm() {
     return isValid;
 }
 
-// Funciones de validación
+// Funciones de validación de campos
 function validateEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
@@ -227,7 +233,7 @@ function validatePhone(phone) {
     return /^\+?[\d\s-]{8,}$/.test(phone);
 }
 
-// Función para mostrar errores en los campos
+// Muestra mensajes de error en campos
 function showFieldError(field, message) {
     const errorDiv = field.parentElement.querySelector('.error-message') || 
                     document.createElement('div');
@@ -239,7 +245,7 @@ function showFieldError(field, message) {
     }
 }
 
-// Función para mostrar notificaciones
+// Sistema de notificaciones
 function showNotification(message, type) {
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
@@ -259,9 +265,9 @@ function showNotification(message, type) {
     }, 3000);
 }
 
-// Animaciones y efectos visuales
+// Inicialización de animaciones y efectos visuales
 document.addEventListener('DOMContentLoaded', () => {
-    // Animación suave para los enlaces de navegación y botones
+    // Scroll suave para navegación
     document.querySelectorAll('a[href^="#"], button[onclick^="location"]').forEach(element => {
         element.addEventListener('click', function (e) {
             e.preventDefault();
@@ -280,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Animación de números en las estadísticas
+    // Animación de contadores en estadísticas
     const statsNumbers = document.querySelectorAll('.stats-number');
     const animateNumber = (element) => {
         const number = element.innerText.match(/\d+/)[0];
@@ -304,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateNumber();
     };
 
-    // Observar cuando las estadísticas entran en el viewport
+    // Observer para animación de estadísticas
     const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -319,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
         statsObserver.observe(statsSection);
     }
 
-    // Efecto hover en las tarjetas de beneficios
+    // Efectos hover en tarjetas de beneficios
     const benefitCards = document.querySelectorAll('.benefit-card');
     benefitCards.forEach(card => {
         card.addEventListener('mouseenter', () => {
@@ -332,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Validación de formulario en tiempo real
+    // Validación en tiempo real de campos
     const inputs = form.querySelectorAll('input[required], textarea[required]');
     inputs.forEach(input => {
         input.addEventListener('input', () => {
@@ -344,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Animación de elementos al hacer scroll
+    // Animaciones al hacer scroll
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -363,13 +369,14 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 
+    // Manejo del formulario de contacto
     const contactForm = document.getElementById('contactForm');
     const errorMessages = contactForm.querySelector('.error-messages');
 
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // Limpiar errores previos
+        // Limpia errores anteriores
         errorMessages.innerHTML = '';
         errorMessages.classList.remove('show');
         contactForm.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
@@ -377,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let errors = [];
         let isValid = true;
 
-        // Validar campos requeridos
+        // Validación de campos requeridos
         contactForm.querySelectorAll('input[required], textarea[required]').forEach(field => {
             if (!field.value.trim()) {
                 isValid = false;
@@ -390,7 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Validar email
+        // Validación de email
         const emailField = contactForm.querySelector('input[type="email"]');
         if (emailField.value.trim() && !validateEmail(emailField.value)) {
             isValid = false;
@@ -398,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errors.push('Por favor, ingresa un email válido');
         }
 
-        // Validar teléfono
+        // Validación de teléfono
         const phoneField = contactForm.querySelector('input[type="tel"]');
         if (phoneField.value.trim() && !validatePhone(phoneField.value)) {
             isValid = false;
@@ -406,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errors.push('Por favor, ingresa un número de teléfono válido');
         }
 
-        // Mostrar errores si los hay
+        // Muestra errores si existen
         if (!isValid) {
             errorMessages.innerHTML = errors.map(error => `<div>${error}</div>`).join('');
             errorMessages.classList.add('show');
@@ -414,15 +421,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // Obtener el botón de envío
+            // Prepara UI para envío
             const submitButton = e.target.querySelector('button[type="submit"]');
             const originalText = submitButton.textContent;
             
-            // Mostrar estado de carga
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
             submitButton.disabled = true;
 
-            // Recopilar datos del formulario
+            // Recopila datos del formulario
             const formData = {
                 nombres: contactForm.querySelector('input[placeholder="Nombres"]').value,
                 institucion_ciudad: contactForm.querySelector('input[placeholder="Institución - Ciudad"]').value,
@@ -432,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 autorizacion: contactForm.querySelector('#privacy').checked
             };
 
-            // Simular envío y mostrar en consola
+            // Simula envío
             await new Promise(resolve => setTimeout(resolve, 1000));
             
             const emailBody = `
@@ -448,11 +454,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             console.log('Datos del formulario de contacto:', emailBody);
 
-            // Limpiar formulario y mostrar éxito
+            // Limpia formulario y muestra confirmación
             contactForm.reset();
             showNotification('¡Gracias por contactarnos! Te responderemos pronto.', 'success');
 
-            // Restaurar el botón
+            // Restaura botón
             submitButton.innerHTML = originalText;
             submitButton.disabled = false;
 
@@ -460,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error al enviar el formulario:', error);
             showNotification('Hubo un error al enviar el formulario. Por favor, intenta nuevamente.', 'error');
             
-            // Restaurar el botón en caso de error
+            // Restaura botón en caso de error
             if (submitButton) {
                 submitButton.innerHTML = originalText;
                 submitButton.disabled = false;
