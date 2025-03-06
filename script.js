@@ -72,28 +72,40 @@ const utils = {
 // Inicialización y manejo del menú móvil
 document.addEventListener('DOMContentLoaded', function() {
     let menuOverlay;
+    let isMenuOpen = false;
 
     // Crea el overlay del menú
     function createOverlay() {
-        menuOverlay = document.createElement('div');
-        menuOverlay.className = 'menu-overlay';
-        document.body.appendChild(menuOverlay);
+        if (!menuOverlay) {
+            menuOverlay = document.createElement('div');
+            menuOverlay.className = 'menu-overlay';
+            document.body.appendChild(menuOverlay);
+        }
     }
 
     // Abre el menú móvil
-    function openMenu() {
-        navLinks.classList.add('active');
+    function openMenu(e) {
+        if (e) e.stopPropagation();
+        if (isMenuOpen) return;
+        
+        isMenuOpen = true;
         createOverlay();
+        navLinks.classList.add('active');
         menuOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
 
     // Cierra el menú móvil
-    function closeMenuHandler() {
+    function closeMenuHandler(e) {
+        if (e) e.stopPropagation();
+        if (!isMenuOpen) return;
+
+        isMenuOpen = false;
         navLinks.classList.remove('active');
         if (menuOverlay) {
             menuOverlay.classList.remove('active');
             menuOverlay.remove();
+            menuOverlay = null;
         }
         document.body.style.overflow = '';
     }
@@ -111,10 +123,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Cierra el menú al hacer clic fuera
     document.addEventListener('click', function(e) {
-        if (menuOverlay && e.target === menuOverlay) {
+        if (isMenuOpen && (e.target === menuOverlay || !navLinks.contains(e.target))) {
             closeMenuHandler();
         }
     });
+
+    // Cierra el menú al redimensionar la ventana
+    window.addEventListener('resize', utils.debounce(() => {
+        if (window.innerWidth > 992 && isMenuOpen) {
+            closeMenuHandler();
+        }
+    }, 250));
 });
 
 // Manejo del modal de afiliación
